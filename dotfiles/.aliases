@@ -1,0 +1,4 @@
+alias kubectl="kubecolor"
+133 alias k="kubecolor"
+134 alias clean-desktop="python3 '/Users/a694316/Documents/Vscode/Python/Clean-Desktop.py'"
+135 alias helm-search="bash /Users/a694316/Documents/Vscode/testing_platform_infrastructure/helmfile-search.sh"
