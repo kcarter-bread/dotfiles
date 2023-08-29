@@ -1,0 +1,46 @@
+---
+- pre_tasks:
+  - name: Ensuring Homebrew Is Installed
+    stat:
+    path: /usr/local/bin/brew
+    register: homebrew_check
+
+  - name: Fail If Homebrew Is Not Installed and install_homebrew_if_missing Is False
+    fail:
+      msg: Homebrew is missing, install from http://brew.sh
+    when:
+      - not homebrew_check.stat.exists
+      - not install_homebrew_if_missing
+
+  - name: Installing Homebrew
+    shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    when:
+      - not homebrew_check.stat.exists
+      - install_homebrew_if_missing
+  
+  - name: Install software
+    hosts: localhost
+    become: false
+    vars:
+      Brew_packages:
+        - awscli
+        - cookiecutter
+        - docker
+        - fzf
+        - gnupg
+        - go
+        - grep
+        - helm
+        - helmfile
+        - istioctl
+        - jira-cli
+        - jq
+        - k9s
+        - kube-capacity
+        - kube-ps1
+        - kubectx
+        - terraform
+        - tfenv
+        - zsh-autocomplete
+        - zsh-syntax-highlighting
+      install_homebrew_if_missing: false
