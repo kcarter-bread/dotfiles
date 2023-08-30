@@ -141,9 +141,9 @@
       homebrew: 
         update_homebrew: true
 
-    - name: Upgrade Homebrew Packages
-      homebrew: 
-        upgrade_all: true
+#    - name: Upgrade Homebrew Packages
+#      homebrew: 
+#        upgrade_all: true
 
     - name: Copy ZSHRC Files
       copy: 
