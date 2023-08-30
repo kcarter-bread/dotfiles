@@ -23,7 +23,7 @@
       - install_homebrew_if_missing
   
   - name: Install software
-    hosts: localhost
+    hosts: all
     become: false
     vars:
       brew_cask_packages: 
