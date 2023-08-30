@@ -1,76 +1,146 @@
 ---
-- hosts: localhost
-  connection: local
-  become: true 
+- name: Install software
+  hosts: localhost
+  become: false
+  vars: 
+    Brew_packages:
+      - autoconf
+      - awscli
+      - azure-cli
+      - brotli
+      - c-ares
+      - ca-certificates
+      - cffi
+      - cookiecutter
+      - docker
+      - docker-completion
+      - docker-machine
+      - docutils
+      - fzf
+      - gdbm
+      - gettext
+      - gh
+      - glib
+      - gmp
+      - gnupg
+      - gnutls
+      - go
+      - grep
+      - helm
+      - helmfile
+      - htop
+      - icu4c
+      - istioctl
+      - jira-cli
+      - jq
+      - k9s
+      - krb5
+      - kube-capacity
+      - kube-ps1
+      - kubecolor
+      - kubectx
+      - kubernetes-cli
+      - leapp-cli-darwin-arm64
+      - libassuan
+      - libevent
+      - libgcrypt
+      - libgpg-error
+      - libidn2
+      - libksba
+      - libnghttp2
+      - libpq
+      - libsecret
+      - libtasn1
+      - libunistring
+      - libusb
+      - libuv
+      - libyaml
+      - m4
+      - mas
+      - mpdecimal
+      - ncurses
+      - nettle
+      - node
+      - npth
+      - oniguruma
+      - openldap
+      - openssl@1.1
+      - openssl@3
+      - p11-kit
+      - pcre2
+      - pinentry
+      - pkg-config
+      - popeye
+      - pycparser
+      - pyenv
+      - pygments
+      - python-certifi
+      - python@3.10
+      - python@3.11
+      - pyyaml
+      - readline
+      - saml2aws
+      - six
+      - sqlite
+      - starship
+      - steampipe
+      - terraform
+      - tfenv
+      - unbound
+      - watch
+      - xz
+      - zsh-autocomplete
+      - zsh-syntax-highlighting
 
-- pre_tasks:
-  - name: Ensuring Homebrew Is Installed
-    stat:
-    path: /opt/homebrew/bin/brew
-    register: homebrew_check
+    Brew_Cask_Packages:
+      - alfred
+      - aws-vault
+      - docker
+      - gitkraken
+      - iterm2
+      - jetbrains-toolbox
+      - kitty
+      - lastpass
+      - leapp
+      - powershell
+      - sdm 
 
-  - name: Fail If Homebrew Is Not Installed and install_homebrew_if_missing Is False
-    fail:
-      msg: Homebrew is missing, install from http://brew.sh
-    when:
-      - not homebrew_check.stat.exists
-      - not install_homebrew_if_missing
+    install_homebrew_if_missing: false
 
-  - name: Installing Homebrew
-    shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    when:
-      - not homebrew_check.stat.exists
-      - install_homebrew_if_missing
-  
-  - name: Install software
-    become: false
-    vars:
-      brew_cask_packages: 
-        - alfred
-        - aws-vault
-        - docker
-        - gitkraken
-        - iterm2
-        - jetbrains-toolbox
-        - kitty
-        - lastpass
-        - leapp
-        - powershell
-        - sdm
-      Brew_packages:
-        - awscli
-        - cookiecutter
-        - docker
-        - fzf
-        - gnupg
-        - go
-        - grep
-        - helm
-        - helmfile
-        - leapp-cli-darwin-arm64
-        - istioctl
-        - jira-cli
-        - jq
-        - k9s
-        - kube-capacity
-        - kube-color
-        - kube-ps1
-        - kubectx
-        - kubernetes-cli
-        - terraform
-        - tfenv
-        - zsh-autocomplete
-        - zsh-syntax-highlighting
-      install_homebrew_if_missing: false
-- tasks: 
-  - name: Updating Homebrew
-    homebrew: 
-      update_homebrew: true
-    when: homebrew_check.stat.exists
+  pre_tasks:
+      - name: Ensuring Homebrew Is Installed
+        stat:
+          path: /opt/homebrew/bin/brew
+        register: homebrew_check
 
-  - name: Upgrading Homebrew Packages
-    homebrew: 
-      upgrade_all: "{{ upgrade_homebrew_packages }}" 
-    register: result
-    until: result is successful
-    when: homebrew_check.stat.exists
+      - name: Fail If Homebrew Is Not Installed and install_homebrew_if_missing Is False
+        fail:
+          msg: Homebrew is missing, install from http://brew.sh
+        when:
+          - not homebrew_check.stat.exists
+          - not install_homebrew_if_missing
+
+      - name: Installing Homebrew
+        shell: /usr/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        when:
+          - not homebrew_check.stat.exists
+          - install_homebrew_if_missing
+
+  tasks:
+    - name: Install Homebrew Packages
+      homebrew:
+        name: "{{ Brew_packages }}"
+        state: present
+
+    - name: Install Brew Cask Packages
+      homebrew_cask: 
+        name: "{{ Brew_Cask_Packages }}"
+        state: present
+
+    - name: Update Homebrew
+      homebrew: 
+        update_homebrew: true
+
+    - name: Upgrade Homebrew Packages
+      homebrew: 
+        upgrade_all: true
