@@ -1,4 +1,8 @@
 ---
+- hosts: localhost
+  connection: local
+  become: true 
+
 - pre_tasks:
   - name: Ensuring Homebrew Is Installed
     stat:
@@ -22,6 +26,18 @@
     hosts: localhost
     become: false
     vars:
+      brew_cask_packages: 
+        - alfred
+        - aws-vault
+        - docker
+        - gitkraken
+        - iterm2
+        - jetbrains-toolbox
+        - kitty
+        - lastpass
+        - leapp
+        - powershell
+        - sdm
       Brew_packages:
         - awscli
         - cookiecutter
@@ -32,15 +48,30 @@
         - grep
         - helm
         - helmfile
+        - leapp-cli-darwin-arm64
         - istioctl
         - jira-cli
         - jq
         - k9s
         - kube-capacity
+        - kube-color
         - kube-ps1
         - kubectx
+        - kubernetes-cli
         - terraform
         - tfenv
         - zsh-autocomplete
         - zsh-syntax-highlighting
       install_homebrew_if_missing: false
+- tasks: 
+  - name: Updating Homebrew
+    homebrew: 
+      update_homebrew: true
+    when: homebrew_check.stat.exists
+
+  - name: Upgrading Homebrew Packages
+    homebrew: 
+      upgrade_all: "{{ upgrade_homebrew_packages }}" 
+    register: result
+    until: result is successful
+    when: homebrew_check.stat.exists
