@@ -144,3 +144,8 @@
     - name: Upgrade Homebrew Packages
       homebrew: 
         upgrade_all: true
+
+    - name: Copy ZSHRC Files
+      copy: 
+        src: dotfiles/.zshrc
+        dest: /Users/a694316/.zshrc
