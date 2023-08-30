@@ -12,6 +12,7 @@
       - ca-certificates
       - cffi
       - cookiecutter
+      - cowsay
       - docker
       - docker-completion
       - docker-machine
@@ -148,4 +149,4 @@
     - name: Copy ZSHRC Files
       copy: 
         src: dotfiles/.zshrc
-        dest: /Users/a694316/.zshrc
+        dest: /Users/$USER/.zshrc
