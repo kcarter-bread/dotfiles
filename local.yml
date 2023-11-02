@@ -11,6 +11,7 @@
       - c-ares
       - ca-certificates
       - cffi
+      - cmatrix
       - cookiecutter
       - cowsay
       - docker
@@ -76,7 +77,6 @@
       - pyenv
       - pygments
       - python-certifi
-      - python@3.10
       - python@3.11
       - pyyaml
       - readline
@@ -94,12 +94,9 @@
       - zsh-syntax-highlighting
 
     Brew_Cask_Packages:
-      - alfred
       - aws-vault
       - docker
-      - gitkraken
       - iterm2
-      - jetbrains-toolbox
       - kitty
       - lastpass
       - leapp
@@ -150,3 +147,17 @@
       copy: 
         src: dotfiles/.zshrc
         dest: /Users/$USER/.zshrc
+
+#commenting out for now current script relies on jq piping and rigamorals 
+#    - name: Create Leapp Roles 
+#      shell: | 
+#        leapp idp-url create --idpUrl $IDPURL
+#        leapp profile create --profileName $PROFILENAME
+#        
+#        vars: 
+#          Leapp_Variables:
+#            - IDPARN="arn:aws:iam::921193560164:saml-provider/bd-gbl-identity-sso-okta-bread"
+#            - IDPURL="https://breadfinance.okta.com/home/amazon_aws/0oa4mpb497kr0gHn1357/272"
+#            - PROFILENAME="bd-gbl-identity"
+#            - ROLEARN="arn:aws:iam::921193560164:role/bd-gbl-identity-admin"
+#      shell: 
