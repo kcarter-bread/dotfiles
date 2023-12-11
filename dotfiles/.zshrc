@@ -113,8 +113,12 @@ PROMPT='$(kube_ps1)'$PROMPT
 alias kubectl="kubecolor"
 alias k="kubecolor"
 alias clean-desktop="python3 '/Users/a694316/Documents/Vscode/Python/Clean-Desktop.py'"
-alias helm-search="bash /Users/a694316/Documents/Vscode/testing_platform_infrastructure/helmfile-search.sh"
+alias helm-search="bash /Users/a694316/src/scripts/helmfile-search.sh"
+alias postgres-login="bash /Users/a694316/src/scrips/postgres-login.sh"
+alias kapacity="kube-capacity"
+
 
 #source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 source /Users/a694316/Documents/Vscode/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 
