@@ -92,7 +92,7 @@
       - xz
       - zsh-autocomplete
       - zsh-syntax-highlighting
-
+      - FairwindsOps/tap/pluto
     Brew_Cask_Packages:
       - aws-vault
       - docker

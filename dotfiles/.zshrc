@@ -114,7 +114,7 @@ alias kubectl="kubecolor"
 alias k="kubecolor"
 alias clean-desktop="python3 '/Users/a694316/Documents/Vscode/Python/Clean-Desktop.py'"
 alias helm-search="bash /Users/a694316/src/scripts/helmfile-search.sh"
-alias postgres-login="bash /Users/a694316/src/scrips/postgres-login.sh"
+alias postgres-login="bash /Users/a694316/src/scripts/postgres-login.sh"
 alias kapacity="kube-capacity"
 
 
